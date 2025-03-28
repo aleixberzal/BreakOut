@@ -1,0 +1,29 @@
+Header Files:
+	Objects:
+		Gameplay:
+			-Ball.h
+			-Brick.h
+			-Pad.h
+			-Wall.h
+		-GameObject.h
+		-Vector2.h
+	Scenes:
+			-GameplayScene.h
+			-MenuScene.h
+			-RankingScene.h
+			-Scene.h
+	-ConsoleControl.h
+	
+Source Files:
+	Objects:
+		Gameplay:
+			-Ball.cpp
+			-Pad.cpp
+		GameObject.cpp:
+	Scenes:
+		-GameplayScene.cpp
+		-MainMenu.cpp
+		-RankingScene.cpp
+	-ConsoleControl.cpp
+	-main.cpp
+	

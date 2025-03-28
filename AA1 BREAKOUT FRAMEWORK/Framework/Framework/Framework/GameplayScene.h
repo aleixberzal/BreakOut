@@ -10,9 +10,9 @@
 
 class GameplayScene : public Scene {
 public:
-	virtual void OnEnter() override;
-	virtual void Update() override;
-	virtual void Render() override;
-	virtual void OnExit() override;
+	 void OnEnter() override;
+	 void Update() override;
+	 void Render() override;
+	 void OnExit() override;
 };
 

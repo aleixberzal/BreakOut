@@ -5,6 +5,8 @@ class RankingScene : public Scene {
 protected:
 	//Vector of pairs-> 1st is a string a 2nd is the score
 	//If you don't undestand std::pair<>, you can use another approach
+	//pair it's a struct that saves a string(key) and an INT(value) 
+
 	std::vector<std::pair<std::string, int>> scores;
 	
 public:
