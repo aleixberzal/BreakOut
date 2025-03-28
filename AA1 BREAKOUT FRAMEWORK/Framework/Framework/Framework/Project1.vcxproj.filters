@@ -57,6 +57,9 @@
     <ClCompile Include="RankingScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="CreditScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleControl.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Header Files\Objects\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

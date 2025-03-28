@@ -7,6 +7,7 @@
 #include "MenuScene.h"
 #include "GameplayScene.h"
 #include "RankingScene.h"
+#include "CreditScene.h"
 #include <map>
 
 int main(){
@@ -24,6 +25,7 @@ int main(){
 	//Create the scenes
 	scenes.emplace("Menu", new MenuScene());
 	scenes.emplace("Gameplay", new GameplayScene());
+	scenes.emplace("Credits", new CreditScene());
 	scenes.emplace("Ranking", new RankingScene());
 
 	//Select the starting scene, in this case, the main menu
