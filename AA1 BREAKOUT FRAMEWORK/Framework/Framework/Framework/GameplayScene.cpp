@@ -35,36 +35,35 @@ void GameplayScene::Update()
 {
 	Scene::Update();
 
-	// Actualizar todos los objetos
+	
 	for (GameObject* o : objects) {
 		o->Update();
 	}
 
 	Ball* ball = nullptr;
-	int brickCount = 0;  // Contador de bricks
-
+	int brickCount = 0; 
+	/*We chech all the gameObjects during the update and every brick goes into our total brick count*/
 	for (GameObject* o : objects) {
 		if (Ball* b = dynamic_cast<Ball*>(o)) {
 			ball = b;
 		}
 		else if (dynamic_cast<Brick*>(o)) {
-			brickCount++;  // Contamos los bricks existentes
+			brickCount++; 
 		}
 	}
 
-	// Verificar si perdemos una vida
+	/*Either when the player touches the ground 3 times, or the brick count is null, the game stops*/
 	int ballHeight = 1;
 	if (ball != nullptr && ball->GetPosition().y + ballHeight >= MAP_SIZE - 1) {
 		lives--;
-		if (lives == -2) {  // Cambiado a <= 0 para mejor legibilidad
+		if (lives == -2) {
 			nextScene = "Exit";
 			finished = true;
 		}
 	}
 
-	// Verificar si no quedan bricks (condición de victoria)
 	if (brickCount == 0) {
-		nextScene = "Exit";  // O puedes usar "WinScene" si tienes
+		nextScene = "Exit";  
 		finished = true;
 	}
 }

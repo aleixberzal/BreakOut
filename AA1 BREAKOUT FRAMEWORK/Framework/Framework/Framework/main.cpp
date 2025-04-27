@@ -54,6 +54,7 @@ int main(){
 		}
 
 		//CONTROL TIME (FPS)
+		/*Making it 1000ms sleep it works as demanded, every second the ball and pad move one position at a time*/
 		Sleep(1000); //100ms sleep, 10 FPS
 	}
 }
