@@ -17,8 +17,9 @@ protected:
 	/*Important flag*/
 	bool touchedPad;
 public:
+	/*Ball can still move diagonally, we just have to change the initial direction of the ball with the vector2 (1,1), and then we can see it will still move right*/
 	Ball(Vector2 _pos, ConsoleColor c, std::vector<GameObject*> _objects)
-		: GameObject(_pos, '@', c), objects(_objects), direction(Vector2(1, 1)), score(0), consecutiveBlocks(0), touchedPad(false) {}
+		: GameObject(_pos, '@', c), objects(_objects), direction(Vector2(0, 1)), score(0), consecutiveBlocks(0), touchedPad(false) {}
 	void Update() override;
 	void Enter();
 	void Render() override;

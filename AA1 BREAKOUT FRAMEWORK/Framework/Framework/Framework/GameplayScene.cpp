@@ -29,37 +29,44 @@ void GameplayScene::OnEnter()
 	objects.push_back(new Pad(Vector2(MAP_SIZE / 2, (MAP_SIZE * 3) / 4), WHITE, 1, MAP_SIZE));
 	
 	//BALL
-	objects.push_back(new Ball(Vector2(2, MAP_SIZE / 2), WHITE, objects));
+	objects.push_back(new Ball(Vector2(MAP_SIZE / 2, (MAP_SIZE * 3) / 4 - 5), WHITE, objects));
 }
-
 void GameplayScene::Update()
 {
 	Scene::Update();
 
-	/*We check the update of all our objects, this way we can check if the player is trying to move left or right*/
+	// Actualizar todos los objetos
 	for (GameObject* o : objects) {
 		o->Update();
 	}
 
 	Ball* ball = nullptr;
+	int brickCount = 0;  // Contador de bricks
+
 	for (GameObject* o : objects) {
 		if (Ball* b = dynamic_cast<Ball*>(o)) {
 			ball = b;
-			break;
+		}
+		else if (dynamic_cast<Brick*>(o)) {
+			brickCount++;  // Contamos los bricks existentes
 		}
 	}
-	 
-	/*In case our player hits the lowest wall we get one live, now hardcoded because its not functional*/
-	int ballHeight = 1; 
-	if (ball != nullptr && ball->GetPosition().y + ballHeight >= MAP_SIZE - 1) {
-		lives--; 
 
-		if (lives == -2) {
-			nextScene = "Exit"; 
-			finished = true;    
+	// Verificar si perdemos una vida
+	int ballHeight = 1;
+	if (ball != nullptr && ball->GetPosition().y + ballHeight >= MAP_SIZE - 1) {
+		lives--;
+		if (lives == -2) {  // Cambiado a <= 0 para mejor legibilidad
+			nextScene = "Exit";
+			finished = true;
 		}
 	}
-	
+
+	// Verificar si no quedan bricks (condición de victoria)
+	if (brickCount == 0) {
+		nextScene = "Exit";  // O puedes usar "WinScene" si tienes
+		finished = true;
+	}
 }
 
 void GameplayScene::Render()

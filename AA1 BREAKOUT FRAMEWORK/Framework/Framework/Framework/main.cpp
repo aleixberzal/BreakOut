@@ -54,6 +54,6 @@ int main(){
 		}
 
 		//CONTROL TIME (FPS)
-		Sleep(100); //100ms sleep, 10 FPS
+		Sleep(1000); //100ms sleep, 10 FPS
 	}
 }
