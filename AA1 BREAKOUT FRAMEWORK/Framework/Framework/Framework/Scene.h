@@ -5,8 +5,12 @@
 
 class Scene {
 protected:
+	//this vector saves the object 
+
 	std::vector<GameObject*> objects;
+	
 	std::string nextScene;
+
 	bool finished;
 public:
 	Scene() {
