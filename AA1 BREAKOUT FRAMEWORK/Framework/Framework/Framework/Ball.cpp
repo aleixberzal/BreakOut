@@ -35,7 +35,6 @@ Vector2 Ball::CalculateCollision(GameObject* other)
 void Ball::Enter() {
     /*We instantiate the variables we will use to make our score*/
     score = 0;
-
     touchedPad = true;
     consecutiveBlocks = 0;
 }
@@ -73,11 +72,10 @@ void Ball::Update()
 
                 position.y -= 1;
                 touchedPad = true;
+                consecutiveBlocks = 0;
             }
             else if (Wall* w = dynamic_cast<Wall*>(go)) {
                 direction = CalculateCollision(go);
-
-                // Nuevo control: si tocamos la pared inferior, perdemos una vida y reseteamos combo
                 if (w->GetIsBottom()) {
                     if (gameplayScene != nullptr) {
                         gameplayScene->LoseLife();
@@ -87,14 +85,16 @@ void Ball::Update()
                 }
             }
             else if (Brick* b = dynamic_cast<Brick*>(go)) {
-                /*We destroy the bricks in case the ball collides with it*/
-                b->Destroy();
-                direction = CalculateCollision(go);
-                /*We get our standard 15p, multiplied by the consecutive blocks we are hitting without our pad touching the ball (which we know thanks to our fla)*/
-                int sumarPuntos = 15 + (consecutiveBlocks * 5);
-                score += sumarPuntos;
-                consecutiveBlocks++;
-                touchedPad = false;
+                if (!b->GetDestroyed()) {
+                    /*We destroy the bricks in case the ball collides with it*/
+                    b->Destroy();
+                    direction = CalculateCollision(go);
+                    /*We get our standard 15p, multiplied by the consecutive blocks we are hitting without our pad touching the ball*/
+                    int sumarPuntos = 15 + (consecutiveBlocks * 5);
+                    score += sumarPuntos;
+                    consecutiveBlocks++;
+                    touchedPad = false;
+                }
             }
         }
     }
