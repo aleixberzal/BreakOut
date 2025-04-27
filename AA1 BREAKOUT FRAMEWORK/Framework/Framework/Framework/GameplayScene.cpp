@@ -1,6 +1,6 @@
 #include "GameplayScene.h"
-#include <fstream> // Para guardar puntuaciones
-#include <cstring> // Para copiar nombre seguro
+#include <fstream> 
+#include <cstring> 
 #include <iostream>
 
 struct PlayerData {
