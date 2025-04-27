@@ -48,52 +48,55 @@ void Ball::Update()
             continue;
         }
 
-        bool collision = position == go->GetPosition();
-        if (collision) {
-            /*To make sure its the pad the collision we are having with the ball we use directly ___*/
-            if (go->GetCharToPrint() == '_') {
-                int padX = go->GetPosition().x;
-                int ballX = position.x;
-                /*In case it hits the center*/
-                if (ballX == padX) {
-                    direction.x = 0;
-                    direction.y = -1;
-                }
-                /*In case it hits its left*/
-                else if (ballX > padX) {
-                    direction.x = 1;
-                    direction.y = -1;
-                }
-                /*In case it hits its right*/
-                else if (ballX < padX) {
-                    direction.x = -1;
-                    direction.y = -1;
-                }
+        if (go->GetCharToPrint() == '_') {
+            int padX = go->GetPosition().x;
+            int padY = go->GetPosition().y;
+            int padWidth = dynamic_cast<Pad*>(go)->GetWidth();
+            int ballX = position.x;
+            int ballY = position.y;
 
-                position.y -= 1;
-                touchedPad = true;
-                consecutiveBlocks = 0;
-            }
-            else if (Wall* w = dynamic_cast<Wall*>(go)) {
-                direction = CalculateCollision(go);
-                if (w->GetIsBottom()) {
-                    if (gameplayScene != nullptr) {
-                        gameplayScene->LoseLife();
+            if (direction.y > 0 && ballY == padY - 1) {
+                if (ballX >= padX - padWidth && ballX <= padX + padWidth) {
+                    if (ballX < padX) {
+                        direction.x = -1;
                     }
+                    else if (ballX > padX) {
+                        direction.x = 1;
+                    }
+                    else {
+                        direction.x = 0;
+                    }
+                    direction.y = -1;
+                    position.y -= 1;
                     touchedPad = true;
                     consecutiveBlocks = 0;
                 }
             }
-            else if (Brick* b = dynamic_cast<Brick*>(go)) {
-                if (!b->GetDestroyed()) {
-                    /*We destroy the bricks in case the ball collides with it*/
-                    b->Destroy();
+        }
+        else {
+            bool collision = position == go->GetPosition();
+            if (collision) {
+                if (Wall* w = dynamic_cast<Wall*>(go)) {
                     direction = CalculateCollision(go);
-                    /*We get our standard 15p, multiplied by the consecutive blocks we are hitting without our pad touching the ball*/
-                    int sumarPuntos = 15 + (consecutiveBlocks * 5);
-                    score += sumarPuntos;
-                    consecutiveBlocks++;
-                    touchedPad = false;
+                    if (w->GetIsBottom()) {
+                        if (gameplayScene != nullptr) {
+                            gameplayScene->LoseLife();
+                        }
+                        touchedPad = true;
+                        consecutiveBlocks = 0;
+                    }
+                }
+                else if (Brick* b = dynamic_cast<Brick*>(go)) {
+                    if (!b->GetDestroyed()) {
+                        /*We destroy the bricks in case the ball collides with it*/
+                        b->Destroy();
+                        direction = CalculateCollision(go);
+                        /*We get our standard 15p, multiplied by the consecutive blocks we are hitting without our pad touching the ball*/
+                        int sumarPuntos = 15 + (consecutiveBlocks * 5);
+                        score += sumarPuntos;
+                        consecutiveBlocks++;
+                        touchedPad = false;
+                    }
                 }
             }
         }
