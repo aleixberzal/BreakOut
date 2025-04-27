@@ -77,27 +77,31 @@ void GameplayScene::Render()
 
 void GameplayScene::OnExit()
 {
+    int finalScore = 0;
+
+    // Recuperar el score antes de eliminar los objetos
+    for (GameObject* o : objects) {
+        if (Ball* b = dynamic_cast<Ball*>(o)) {
+            finalScore = b->GetScore();
+            break;
+        }
+    }
+
+    // Ahora sí puedes destruir los objetos
     for (GameObject* o : objects)
         delete o;
-
     objects.clear();
 
-    // Guardar la puntuación del jugador
+    // Pedir nombre al jugador
     std::string playerName;
     std::cout << "Enter your name: ";
     std::cin >> playerName;
 
+    // Guardar en rankings.dat
     PlayerData pdata;
     strcpy_s(pdata.name, sizeof(pdata.name), playerName.c_str());
 
     pdata.name[sizeof(pdata.name) - 1] = '\0';
-
-    int finalScore = 0;
-    for (GameObject* o : objects) {
-        if (Ball* b = dynamic_cast<Ball*>(o)) {
-            finalScore = b->GetScore(); // Asumimos que tienes un GetScore en Ball
-        }
-    }
     pdata.score = finalScore;
 
     std::ofstream file("rankings.dat", std::ios::binary | std::ios::app);

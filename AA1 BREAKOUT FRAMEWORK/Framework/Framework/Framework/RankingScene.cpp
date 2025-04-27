@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <conio.h>
+#include <algorithm> 
 
 void RankingScene::OnEnter() {
     std::ifstream file("rankings.dat", std::ios::binary);
@@ -13,6 +14,11 @@ void RankingScene::OnEnter() {
         }
         file.close();
     }
+
+    // Ordenar de mayor a menor puntuación
+    std::sort(rankings.begin(), rankings.end(), [](const PlayerData& a, const PlayerData& b) {
+        return a.score > b.score;
+        });
 }
 
 void RankingScene::Update() {
