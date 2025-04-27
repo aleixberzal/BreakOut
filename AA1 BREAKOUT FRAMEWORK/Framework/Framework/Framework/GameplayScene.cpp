@@ -88,7 +88,8 @@ void GameplayScene::OnExit()
     std::cin >> playerName;
 
     PlayerData pdata;
-    strncpy(pdata.name, playerName.c_str(), sizeof(pdata.name));
+    strcpy_s(pdata.name, sizeof(pdata.name), playerName.c_str());
+
     pdata.name[sizeof(pdata.name) - 1] = '\0';
 
     int finalScore = 0;

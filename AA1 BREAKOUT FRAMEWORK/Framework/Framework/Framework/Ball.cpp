@@ -57,7 +57,7 @@ void Ball::Update()
             int ballX = position.x;
             int ballY = position.y;
 
-            if (direction.y > 0 && ballY == padY + 1) {
+            if (direction.y > 0 && ballY == padY ) {
                 if (ballX >= padX - padWidth && ballX <= padX + padWidth) {
                     if (ballX < padX) {
                         direction.x = -1;

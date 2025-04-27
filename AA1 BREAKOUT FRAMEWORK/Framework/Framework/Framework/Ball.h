@@ -3,9 +3,10 @@
 #include "Wall.h"
 #include "Brick.h"
 #include "Pad.h"
-#include "GameplayScene.h"
 #include "Vector2.h"
 #include <vector>
+
+class GameplayScene; // Forward declaration
 
 class Ball : public GameObject {
 protected:
@@ -20,7 +21,7 @@ protected:
     Vector2 CalculateCollision(GameObject* other);
 
 public:
-    Ball(Vector2 _pos, ConsoleColor c, std::vector<GameObject*> _objects, GameplayScene* _scene)
+    Ball(Vector2 _pos, ConsoleColor c, std::vector<GameObject*>& _objects, GameplayScene* _scene)
         : GameObject(_pos, '@', c), objects(_objects), gameplayScene(_scene),
         direction(Vector2(1, 1)), score(0), touchedPad(true), consecutiveBlocks(0) {
     }

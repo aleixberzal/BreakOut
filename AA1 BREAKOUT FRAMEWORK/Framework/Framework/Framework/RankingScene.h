@@ -1,20 +1,19 @@
 #pragma once
 #include "Scene.h"
+#include <vector>
+#include <string>
+
+struct PlayerData {
+    char name[20];
+    int score;
+};
 
 class RankingScene : public Scene {
-protected:
-	//Vector of pairs-> 1st is a string a 2nd is the score
-	//If you don't undestand std::pair<>, you can use another approach
-	//pair it's a struct that saves a string(key) and an INT(value) 
-
-	std::vector<std::pair<std::string, int>> scores;
-	
+private:
+    std::vector<PlayerData> rankings;
 public:
-	RankingScene() {
-		nextScene = "Menu";
-		//Constructor TODO -> load scores
-	}
-	~RankingScene() = default; //Destructor TODO -> save scores
-	void Update() override;
-	void Render() override;
+    void OnEnter() override;
+    void Update() override;
+    void Render() override;
+    void OnExit() override;
 };
