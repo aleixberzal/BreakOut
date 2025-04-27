@@ -9,6 +9,8 @@
 #define MAP_SIZE 15
 
 class GameplayScene : public Scene {
+private: 
+	int lives;
 public:
 	 void OnEnter() override;
 	 void Update() override;

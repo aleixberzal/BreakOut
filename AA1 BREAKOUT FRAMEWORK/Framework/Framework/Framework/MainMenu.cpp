@@ -15,7 +15,7 @@ void MenuScene::Update()
 		nextScene = "Credits";
 		finished = true;
 	}
-	else if (GetAsyncKeyState('4') != 0) {
+	else if (GetAsyncKeyState('0') != 0) {
 		nextScene = "Exit";
 		finished = true;
 	}
@@ -23,5 +23,5 @@ void MenuScene::Update()
 
 void MenuScene::Render()
 {
-	std::cout << " 1- Ranking\n 2- Gameplay\n 3- Exit\n 4- Scene";
+	std::cout << " 1- Ranking\n 2- Gameplay\n 3- Credits\n 0- Exit";
 }

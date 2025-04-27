@@ -4,6 +4,8 @@
 
 class CreditScene : public Scene {
 public:
-	virtual void showCredits() ;
-	
+    void showCredits();
+    void OnEnter() override;
+    void Update() override;
+    void Render() override;
 };

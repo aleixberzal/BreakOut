@@ -2,6 +2,8 @@
 
 void GameplayScene::OnEnter()
 {
+
+	lives = 3;
 	//Wall generation
 	for (int i = 0; i < MAP_SIZE; i++) {
 		Wall* topWall = new Wall(Vector2(i, 0), YELLOW, false);
@@ -33,11 +35,40 @@ void GameplayScene::OnEnter()
 void GameplayScene::Update()
 {
 	Scene::Update();
+
+	/*We check the update of all our objects, this way we can check if the player is trying to move left or right*/
+	for (GameObject* o : objects) {
+		o->Update();
+	}
+
+	Ball* ball = nullptr;
+	for (GameObject* o : objects) {
+		if (Ball* b = dynamic_cast<Ball*>(o)) {
+			ball = b;
+			break;
+		}
+	}
+	 
+	/*In case our player hits the lowest wall we get one live, now hardcoded because its not functional*/
+	int ballHeight = 1; 
+	if (ball != nullptr && ball->GetPosition().y + ballHeight >= MAP_SIZE - 1) {
+		lives--; 
+
+		if (lives == -2) {
+			nextScene = "Exit"; 
+			finished = true;    
+		}
+	}
+	
 }
 
 void GameplayScene::Render()
 {
 	Scene::Render();
+	/*We render th elives bellow the map*/
+	ConsoleXY(0, MAP_SIZE);  
+	std::cout << "Lives: " << lives + 2;
+
 }
 
 void GameplayScene::OnExit()

@@ -14,14 +14,14 @@ void Pad::Update(){
 }
 
 void Pad::Render() {
-	//render the center
+	
 	GameObject::Render();
 	
 	for (int i = 1; i <= width; i++) {
-		//Dreta
+		
 		ConsoleXY(position.x + i, position.y);
 		std::cout << charToPrint;
-		//Esquerra
+		
 		ConsoleXY(position.x - i, position.y);
 		std::cout << charToPrint;
 	}
