@@ -1,6 +1,10 @@
 #include "Ball.h"
-#include "MenuScene.h"
 #include "GameplayScene.h"
+#include "Wall.h"
+#include "Brick.h"
+#include "Pad.h"
+#include "ConsoleControl.h"
+#include <iostream>
 
 Vector2 Ball::CalculateCollision(GameObject* other)
 {
@@ -41,8 +45,6 @@ void Ball::Enter() {
 
 void Ball::Update()
 {
-    position = position + direction;
-
     for (GameObject* go : objects) {
         if (go == this) {
             continue;
@@ -54,9 +56,8 @@ void Ball::Update()
             int padWidth = dynamic_cast<Pad*>(go)->GetWidth();
             int ballX = position.x;
             int ballY = position.y;
-           
 
-            if (direction.y > 0 && ballY == padY +1  ) {
+            if (direction.y > 0 && ballY == padY + 1) {
                 if (ballX >= padX - padWidth && ballX <= padX + padWidth) {
                     if (ballX < padX) {
                         direction.x = -1;
@@ -73,7 +74,6 @@ void Ball::Update()
                     consecutiveBlocks = 0;
                 }
             }
-
         }
         else {
             bool collision = position == go->GetPosition();
@@ -103,6 +103,8 @@ void Ball::Update()
             }
         }
     }
+
+    position = position + direction;
 }
 
 void Ball::Render() {

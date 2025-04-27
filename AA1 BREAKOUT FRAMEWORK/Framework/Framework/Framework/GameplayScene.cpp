@@ -1,4 +1,12 @@
 #include "GameplayScene.h"
+#include <fstream> // Para guardar puntuaciones
+#include <cstring> // Para copiar nombre seguro
+#include <iostream>
+
+struct PlayerData {
+    char name[20];
+    int score;
+};
 
 void GameplayScene::OnEnter()
 {
@@ -73,4 +81,27 @@ void GameplayScene::OnExit()
         delete o;
 
     objects.clear();
+
+    // Guardar la puntuación del jugador
+    std::string playerName;
+    std::cout << "Enter your name: ";
+    std::cin >> playerName;
+
+    PlayerData pdata;
+    strncpy(pdata.name, playerName.c_str(), sizeof(pdata.name));
+    pdata.name[sizeof(pdata.name) - 1] = '\0';
+
+    int finalScore = 0;
+    for (GameObject* o : objects) {
+        if (Ball* b = dynamic_cast<Ball*>(o)) {
+            finalScore = b->GetScore(); // Asumimos que tienes un GetScore en Ball
+        }
+    }
+    pdata.score = finalScore;
+
+    std::ofstream file("rankings.dat", std::ios::binary | std::ios::app);
+    if (file.is_open()) {
+        file.write(reinterpret_cast<char*>(&pdata), sizeof(PlayerData));
+        file.close();
+    }
 }
