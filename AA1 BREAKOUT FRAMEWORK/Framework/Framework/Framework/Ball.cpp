@@ -54,8 +54,9 @@ void Ball::Update()
             int padWidth = dynamic_cast<Pad*>(go)->GetWidth();
             int ballX = position.x;
             int ballY = position.y;
+           
 
-            if (direction.y > 0 && ballY == padY - 1) {
+            if (direction.y > 0 && ballY == padY +1  ) {
                 if (ballX >= padX - padWidth && ballX <= padX + padWidth) {
                     if (ballX < padX) {
                         direction.x = -1;
@@ -72,6 +73,7 @@ void Ball::Update()
                     consecutiveBlocks = 0;
                 }
             }
+
         }
         else {
             bool collision = position == go->GetPosition();
